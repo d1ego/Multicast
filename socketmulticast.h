@@ -1,5 +1,6 @@
 #ifndef SOCKETMULTICAST_H
 #define SOCKETMULTICAST_H
+
 class SocketMulticast{
   public:
     SocketMulticast(int);
