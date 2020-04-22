@@ -5,18 +5,18 @@
     int reuse = 1;
     bzero((char *)&direccionForanea, sizeof(direccionForanea));
   	bzero((char *)&direccionLocal, sizeof(direccionLocal));
-  	if ((s = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP)) < 0) {
+  	if ((s = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)) < 0) {
   		perror("Socket creation failed");
   		exit(EXIT_FAILURE);
   	}
 
   	int reuse = 1;
   	if (setsockopt(s, SOL_SOCKET, SO_REUSEPORT, &reuse, sizeof(reuse)) == -1) {
-  		printf("Error al llamar a la funciรณn setsockopt\n");
+  		printf("Error al llamar a la funcion setsockopt\n");
   		exit(0);
   	}
 
-  	direccionLocal.sin_family = PF_INET;
+  	direccionLocal.sin_family = AF_INET;
   	direccionLocal.sin_addr.s_addr = INADDR_ANY;
   	direccionLocal.sin_port = htons(pto);
   	if (bind(s, (struct sockaddr *)&direccionLocal, sizeof(direccionLocal)) < 0)
