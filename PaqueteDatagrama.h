@@ -1,5 +1,7 @@
 #ifndef PAQUETEDATAGRAMA_H
 #define PAQUETEDATAGRAMA_H
+#define MAX_LONGITUD_DATOS 16376
+
 class PaqueteDatagrama
 {
 public:

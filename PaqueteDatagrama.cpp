@@ -3,6 +3,11 @@
 #include <stdio.h>
 
 PaqueteDatagrama::PaqueteDatagrama(char* _datos, unsigned int _longitud, char* _ip, int _puerto) {
+  if (longitud > MAX_LONGITUD_DATOS)
+  {
+      perror("Longitud de datos demasiado grande.");
+      exit(EXIT_FAILURE);
+  }
     datos = new char[_longitud];
     longitud = _longitud;
     memcpy(datos,_datos, _longitud);
@@ -11,7 +16,12 @@ PaqueteDatagrama::PaqueteDatagrama(char* _datos, unsigned int _longitud, char* _
 }
 
 PaqueteDatagrama::PaqueteDatagrama(unsigned int _longitud) {
-    datos = new char[_longitud];
+  if (longitud > MAX_LONGITUD_DATOS)
+  {
+      perror("Longitud de datos demasiado grande.");
+      exit(EXIT_FAILURE);
+  }
+  datos = new char[_longitud];
     longitud = _longitud;
 }
 

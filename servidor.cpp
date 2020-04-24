@@ -3,56 +3,49 @@
 
 int main(int argc, char const *argv[])
 {
-
-    if (argc != 3)
+    if (argc != 5)
     {
-        printf("Uso: ./%s [DIRECCIÓN MULTICAST] [PUERTO DE ESCUCHA]\n", argv[0]);
+        printf("Uso: ./%s [DIRECCIÓN MULTICAST] [PUERTO PARA ENVIAR] [TTL] [CADENA A ENVIAR]\n",
+               argv[0]);
         exit(EXIT_FAILURE);
     }
 
     // Extracción de parámetros.
 
-
-
     char direccionMulticast[16];
     sprintf(direccionMulticast, "%s", argv[1]);
 
-    int puertoRecepcion = atoi(argv[2]);
+    int puertoTransmision = atoi(argv[2]);
 
-    // Se crea socket y se une a grupo.
-    SocketMulticast socket(puertoRecepcion);
-    socket.unirAlGrupo(direccionMulticast);
+    unsigned char ttl = (unsigned char)atoi(argv[3]);
 
-    // Se prepara un paquete para recibir y se imprime origen.
-    PaqueteDatagrama pd(MAX_LONGITUD_DATOS);
-    if (socket.recibe(pd) < 0) {
-        printf("Error al recibir paquete\n");
-        exit(1);
-    }
-
-    char dirFuente[16];
-    sprintf(dirFuente, "%s", pd.obtieneDireccion());
-
-    printf("\nSe recibió un paquete en el grupo.\n");
-    printf("\tOrigen: %s:%d\n", dirFuente, pd.obtienePuerto());
-    printf("\tContenido: %s.\n", pd.obtieneDatos());
-
-
-
-    socket.salirDelGrupo(direccionMulticast);
-
+    int longitudCadena = strlen(argv[4]);
+    char *cadenaParaEnviar = new char[longitudCadena];
+    sprintf(cadenaParaEnviar, "%s", argv[4]);
 
     // Se abre socket.
-    SocketDatagrama socketUnicast(7000);
+    SocketMulticast socket(puertoTransmision);
+    //socket.unirAlGrupo(direccionMulticast);
 
     // Se genera paquete y se envía.
 
-    PaqueteDatagrama pdUnicast("Si recibi dato \n", strlen("Si recibi dato \n"), dirFuente, 6000);
+    PaqueteDatagrama pd(cadenaParaEnviar, longitudCadena, direccionMulticast, puertoTransmision);
+    if (socket.envia(pd, ttl) < 0)
+    {
+        printf("Error al enviar paquete\n");
+        exit(1);
+    }
+    printf("Se emitió un paquete de datagrama al grupo indicado.\n");
 
 
-    socketUnicast.envia(pdUnicast);
-    sleep(1);
+    SocketDatagrama socketUnicast(6000);
+    PaqueteDatagrama request(MAX_LONGITUD_DATOS);
 
+    for (int i = 0; i < 5; ++i)
+    {
+        socketUnicast.recibe(request);
+        printf("Si recibi respuesta de: %s\n",request.obtieneDireccion());
+    }
 
 
     return 0;

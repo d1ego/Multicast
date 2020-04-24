@@ -1,4 +1,4 @@
-#include "socketmulticast.h"
+#include "SocketMulticast.h"
 
   SocketMulticast(int)
   {

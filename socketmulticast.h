@@ -1,5 +1,14 @@
+
+
 #ifndef SOCKETMULTICAST_H
 #define SOCKETMULTICAST_H
+#include "PaqueteDatagrama.h"
+#include <arpa/inet.h>
+#include <strings.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <errno.h>
+
 
 class SocketMulticast{
   public:

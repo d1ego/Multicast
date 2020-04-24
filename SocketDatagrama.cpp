@@ -11,6 +11,7 @@
 #include <cstring>
 #include <unistd.h>
 
+
 SocketDatagrama::SocketDatagrama(int _puerto){
 	s = socket(AF_INET, SOCK_DGRAM, 0);
 	bzero((char *)&direccionLocal, sizeof(direccionLocal));
