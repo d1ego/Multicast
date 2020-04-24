@@ -1,8 +1,8 @@
-PROJECT = servidor
+PROJECT = emisor
 CFLAGS = -Wall
 LDFLAGS = -lm -lpthread
 CC = g++
-EXCLUDED_FILES = cliente.cpp
+EXCLUDED_FILES = receptor.cpp
 OBJECTS = $(patsubst %.cpp, %.o, $(filter-out $(EXCLUDED_FILES), $(wildcard *.cpp)))
 
 MULTICAST_GROUP = 224.0.0.10

@@ -1,4 +1,3 @@
-
 #include "SocketMulticast.h"
 #include "SocketDatagrama.h"
 
@@ -22,7 +21,7 @@ int main(int argc, char const *argv[])
 
     // Se crea socket y se une a grupo.
     SocketMulticast socket(puertoRecepcion);
-    socket.unirAlGrupo(direccionMulticast);
+    socket.unirseGrupo(direccionMulticast);
 
     // Se prepara un paquete para recibir y se imprime origen.
     PaqueteDatagrama pd(MAX_LONGITUD_DATOS);
@@ -40,7 +39,7 @@ int main(int argc, char const *argv[])
 
 
 
-    socket.salirDelGrupo(direccionMulticast);
+    socket.salirseGrupo(direccionMulticast);
 
 
     // Se abre socket.

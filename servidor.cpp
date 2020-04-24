@@ -2,7 +2,7 @@
 #include "SocketDatagrama.h"
 
 int main(int argc, char const *argv[])
-{
+{   
     if (argc != 5)
     {
         printf("Uso: ./%s [DIRECCIÓN MULTICAST] [PUERTO PARA ENVIAR] [TTL] [CADENA A ENVIAR]\n",
@@ -46,7 +46,7 @@ int main(int argc, char const *argv[])
         socketUnicast.recibe(request);
         printf("Si recibi respuesta de: %s\n",request.obtieneDireccion());
     }
-
+        
 
     return 0;
 }
