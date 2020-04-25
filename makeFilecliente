@@ -1,28 +1,25 @@
 
-  PROJECT = receptor
-  CFLAGS = -Wall
-  LDFLAGS = -lm -lpthread
-  CC = g++ -g3
-  EXCLUDED_FILES = servidor.cpp
-  OBJECTS = $(patsubst %.cpp, %.o, $(filter-out $(EXCLUDED_FILES),$(wildcard *.cpp)))
+PROJECT = cliente
+CFLAGS = -Wall
+LDFLAGS = -lm -lpthread
+CC = g++ -g3
+EXCLUDED_FILES = servidor.cpp
+OBJECTS = $(patsubst %.cpp, %.o, $(filter-out $(EXCLUDED_FILES),$(wildcard *.cpp)))
 
-  MULTICAST_GROUP = 224.0.0.10
-  LISTENING_PORT = 5000
+MULTICAST_GROUP = 224.0.0.10
+LISTENING_PORT = 5000
 
-  ARGS = $(MULTICAST_GROUP) $(LISTENING_PORT)
+ARGS = $(MULTICAST_GROUP) $(LISTENING_PORT)
 
-  all: $(PROJECT)
+all: $(PROJECT)
 
-  %.o: %.cpp
-  	$(CC) -c $< $(CFLAGS)
+%.o: %.cpp
+	$(CC) -c $< $(CFLAGS)
 
-  $(PROJECT): $(OBJECTS)
-  	$(CC) -o $@ $^ $(LDFLAGS)
+$(PROJECT): $(OBJECTS)
+	$(CC) -o $@ $^ $(LDFLAGS)
 
-  .PHONY: clean
+.PHONY: clean
 
-  clean:
-  	rm -f $(OBJECTS) $(PROJECT)
-
-  run:
-  	./$(PROJECT) $(ARGS)
+clean:
+	rm -f $(OBJECTS) $(PROJECT)

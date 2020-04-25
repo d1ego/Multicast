@@ -9,10 +9,7 @@ int main(int argc, char const *argv[])
         printf("Uso: ./%s [DIRECCIÓN MULTICAST] [PUERTO DE ESCUCHA]\n", argv[0]);
         exit(EXIT_FAILURE);
     }
-
     // Extracción de parámetros.
-
-
 
     char direccionMulticast[16];
     sprintf(direccionMulticast, "%s", argv[1]);
@@ -24,18 +21,18 @@ int main(int argc, char const *argv[])
     socket.unirseGrupo(direccionMulticast);
 
     // Se prepara un paquete para recibir y se imprime origen.
-    PaqueteDatagrama pd(MAX_LONGITUD_DATOS);
-    if (socket.recibe(pd) < 0) {
+    PaqueteDatagrama p(MAX_LONGITUD_DATOS);
+    if (socket.recibe(p) < 0) {
         printf("Error al recibir paquete\n");
         exit(1);
     }
 
     char dirFuente[16];
-    sprintf(dirFuente, "%s", pd.obtieneDireccion());
+    sprintf(dirFuente, "%s", p.obtieneDireccion());
 
     printf("\nSe recibió un paquete en el grupo.\n");
-    printf("\tOrigen: %s:%d\n", dirFuente, pd.obtienePuerto());
-    printf("\tContenido: %s.\n", pd.obtieneDatos());
+    printf("\tOrigen: %s:%d\n", dirFuente, p.obtienePuerto());
+    printf("\tContenido: %s.\n", p.obtieneDatos());
 
 
 
@@ -47,10 +44,10 @@ int main(int argc, char const *argv[])
 
     // Se genera paquete y se envía.
 
-    PaqueteDatagrama pdUnicast("Si recibi dato \n", strlen("Si recibi dato \n"), dirFuente, 6000);
+    PaqueteDatagrama pUnicast("Si recibi dato \n", strlen("Si recibi dato \n"), dirFuente, 6000);
 
 
-    socketUnicast.envia(pdUnicast);
+    socketUnicast.envia(pUnicast);
     sleep(1);
 
 

@@ -24,6 +24,3 @@ $(PROJECT): $(OBJECTS)
 
 clean:
 	rm -f $(OBJECTS) $(PROJECT)
-
-run:
-	./$(PROJECT) $(ARGS)
